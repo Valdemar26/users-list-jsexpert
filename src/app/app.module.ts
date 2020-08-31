@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,8 +21,10 @@ import { UsersListComponent } from './users-list/users-list.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    RouterModule,
     MatListModule,
-    RouterModule
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

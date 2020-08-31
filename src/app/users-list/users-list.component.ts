@@ -19,7 +19,7 @@ export class UsersListComponent implements OnInit {
   }
 
   getUsersList() {
-    this.users = this.usersService.usersList;
+    this.users = this.usersService.getUsersList();
   }
 
 }

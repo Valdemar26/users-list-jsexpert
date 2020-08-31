@@ -105,4 +105,8 @@ export class UsersService {
   ]
 
   constructor() { }
+
+  getUsersList(): UserInterface[] {
+    return this.usersList;
+  }
 }

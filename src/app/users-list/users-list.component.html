@@ -1,7 +1,26 @@
+<div class="sorting">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Users sorting</mat-label>
+    <mat-select>
+      <mat-option value="0">From A to Z</mat-option>
+      <mat-option value="0">From Z to A</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Search user" value="">
+  </mat-form-field>
+
+</div>
+
 <mat-selection-list #usersList>
-  <mat-list-option *ngFor="let user of users">
-    <span>{{ user.name }}</span>
-    <span>{{ user.username }}</span>
+  <mat-list-option *ngFor="let user of users; let i = index;"
+                   [ngClass]="{'gray': i % 2}">
+    <span class="item">{{ user.name }}</span>
+    <span class="item">{{ user.username }}</span>
+    <span *ngIf="user.role === 'Admin'" class="item">: {{ user.role }}</span>
   </mat-list-option>
 </mat-selection-list>
 
