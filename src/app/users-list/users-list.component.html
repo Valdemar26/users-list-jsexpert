@@ -2,15 +2,19 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Users sorting</mat-label>
-    <mat-select>
+    <mat-select #list
+                (selectionChange)="sort(list.value)">
       <mat-option value="0">From A to Z</mat-option>
-      <mat-option value="0">From Z to A</mat-option>
+      <mat-option value="1">From Z to A</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
-    <input matInput placeholder="Search user" value="">
+    <input matInput placeholder="Search user" value=""
+           #input
+           (keyup.enter)="search(input.value)">
+    <mat-icon matSuffix (click)="search(input.value)">search</mat-icon>
   </mat-form-field>
 
 </div>
@@ -18,9 +22,11 @@
 <mat-selection-list #usersList>
   <mat-list-option *ngFor="let user of users; let i = index;"
                    [ngClass]="{'gray': i % 2}">
-    <span class="item">{{ user.name }}</span>
+
     <span class="item">{{ user.username }}</span>
-    <span *ngIf="user.role === 'Admin'" class="item">: {{ user.role }}</span>
+    <span class="item">{{ user.name }}</span>
+    <span *ngIf="user.role === 'Admin'" class="item">{{ user.role }}</span>
+
   </mat-list-option>
 </mat-selection-list>
 

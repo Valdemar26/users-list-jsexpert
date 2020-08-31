@@ -109,4 +109,13 @@ export class UsersService {
   getUsersList(): UserInterface[] {
     return this.usersList;
   }
+
+  findUser(query: string): UserInterface[] {
+    return this.usersList.filter((user: UserInterface) => user.name.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  sortUsers(val: string) {
+    const direction = !!parseInt(val, 10) ? -1 : 1;
+    return this.usersList.sort((a: UserInterface, b: UserInterface) => direction * (a.username > b.username ? 1 : -1));
+  }
 }

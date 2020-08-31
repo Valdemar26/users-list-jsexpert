@@ -22,4 +22,11 @@ export class UsersListComponent implements OnInit {
     this.users = this.usersService.getUsersList();
   }
 
+  search(query: string) {
+    this.users = this.usersService.findUser(query);
+  }
+
+  sort(direction: string) {
+    this.users = this.usersService.sortUsers(direction);
+  }
 }
