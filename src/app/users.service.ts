@@ -118,4 +118,8 @@ export class UsersService {
     const direction = !!parseInt(val, 10) ? -1 : 1;
     return this.usersList.sort((a: UserInterface, b: UserInterface) => direction * (a.username > b.username ? 1 : -1));
   }
+
+  addUser(newUser: UserInterface) {
+    this.usersList.unshift(newUser);
+  }
 }

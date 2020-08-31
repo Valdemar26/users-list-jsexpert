@@ -1,4 +1,4 @@
-<div class="sorting">
+<div class="line">
 
   <mat-form-field appearance="outline">
     <mat-label>Users sorting</mat-label>
@@ -17,6 +17,28 @@
     <mat-icon matSuffix (click)="search(input.value)">search</mat-icon>
   </mat-form-field>
 
+</div>
+
+<div class="line">
+  <mat-form-field appearance="outline" class="item">
+    <mat-label>Username</mat-label>
+    <input matInput placeholder="Username" [(ngModel)]="username">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="item">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Name" [(ngModel)]="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="item">
+    <mat-label>User role</mat-label>
+    <mat-select [(ngModel)]="role">
+      <mat-option value="Admin">Admin</mat-option>
+      <mat-option value="User">User</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="addUser()">Add user</button>
 </div>
 
 <mat-selection-list #usersList>
