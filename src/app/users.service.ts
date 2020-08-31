@@ -122,4 +122,10 @@ export class UsersService {
   addUser(newUser: UserInterface) {
     this.usersList.unshift(newUser);
   }
+
+  deleteUsers(users: UserInterface[]) {
+    users.forEach((user: UserInterface) => {
+      this.usersList = this.usersList.filter((item: UserInterface) => item.id !== user.id);
+    })
+  }
 }

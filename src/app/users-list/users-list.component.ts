@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from '../users.service';
 import { UserInterface } from '../interfaces/user.interface';
+import {MatListOption} from "@angular/material/list";
 
 @Component({
   selector: 'app-users-list',
@@ -14,6 +15,7 @@ export class UsersListComponent implements OnInit {
   username: string;
   name: string;
   role: string;
+  private selectedList: UserInterface[];
 
   constructor(public usersService: UsersService) { }
 
@@ -33,8 +35,7 @@ export class UsersListComponent implements OnInit {
     this.users = this.usersService.sortUsers(direction);
   }
 
-  addUser() {
-    // todo write random generator method for id, email, phone and website
+  addUser(): void {
     this.usersService.addUser({
       id: Math.floor((Math.random() * 6) + 10),
       name: this.name,
@@ -46,5 +47,17 @@ export class UsersListComponent implements OnInit {
     })
 
     this.users = this.usersService.getUsersList();
+  }
+
+  deleteUsers(): void {
+    this.usersService.deleteUsers(this.selectedList);
+    this.users = this.usersService.getUsersList();
+  }
+
+  selectItem(users: MatListOption[]) {
+    this.selectedList = [];
+    users.forEach((element) => {
+      this.selectedList.push(element.value);
+    })
   }
 }

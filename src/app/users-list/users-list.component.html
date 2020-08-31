@@ -38,20 +38,41 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="addUser()">Add user</button>
+  <button mat-raised-button color="primary" class="btn"
+          (click)="addUser()">Add user</button>
 </div>
 
-<mat-selection-list #usersList>
-  <mat-list-option *ngFor="let user of users; let i = index;"
-                   [ngClass]="{'gray': i % 2}">
 
-    <span class="item">{{ user.username }}</span>
-    <span class="item">{{ user.name }}</span>
-    <span *ngIf="user.role === 'Admin'" class="item">{{ user.role }}</span>
+<div *ngIf="users.length > 0; else empty">
+  <mat-selection-list #usersList (selectionChange)="selectItem(usersList.selectedOptions.selected)">
+    <mat-list-option *ngFor="let user of users; let i = index;"
+                     [value]="user"
+                     [ngClass]="{'gray': i % 2}">
 
-  </mat-list-option>
-</mat-selection-list>
+      <span class="item">{{ user.username }}</span>
+      <span class="item">{{ user.name }}</span>
+      <span *ngIf="user.role === 'Admin'" class="item">{{ user.role }}</span>
 
-<p>
-  Options selected: {{ usersList.selectedOptions.selected.length }}
-</p>
+    </mat-list-option>
+
+    <div class="line">
+      <div>
+        <p>
+          Options selected: {{ usersList.selectedOptions.selected.length }}
+        </p>
+      </div>
+
+      <div>
+        <button mat-raised-button color="warn" class="btn"
+                (click)="deleteUsers()">Delete</button>
+      </div>
+    </div>
+
+  </mat-selection-list>
+</div>
+
+<ng-template #empty>
+  <div>No Users found!</div>
+</ng-template>
+
+
