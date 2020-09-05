@@ -12,13 +12,15 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersListComponent } from './users-list/users-list.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UsersListComponent
+    UsersListComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
