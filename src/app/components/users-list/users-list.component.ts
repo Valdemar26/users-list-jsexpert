@@ -1,9 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 
 import { MatListOption } from '@angular/material/list';
 
 import { UserInterface } from '../../interfaces/user.interface';
 import { UsersService } from '../../services/users.service';
+import { NotificationComponent } from '../notification/notification.component';
 
 
 @Component({
@@ -11,7 +21,10 @@ import { UsersService } from '../../services/users.service';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
-export class UsersListComponent implements OnInit {
+export class UsersListComponent implements OnInit, OnDestroy {
+
+  @ViewChild('notify', { read: ViewContainerRef }) container: ViewContainerRef;
+  componentRef: ComponentRef<NotificationComponent>;
 
   users: UserInterface[];
   username: string;
@@ -19,7 +32,10 @@ export class UsersListComponent implements OnInit {
   role: string;
   private selectedList: UserInterface[];
 
-  constructor(public usersService: UsersService) { }
+  constructor(
+    public usersService: UsersService,
+    private resolver: ComponentFactoryResolver
+  ) { }
 
   public ngOnInit(): void {
     this.getUsersList();
@@ -46,18 +62,29 @@ export class UsersListComponent implements OnInit {
   }
 
   public addUser(): void {
-    this.usersService.addUser({
-      id: Math.floor((Math.random() * 6) + 10),
-      name: this.name,
-      username: this.username,
-      email: '',
-      role: this.role,
-      phone: '',
-      website: ''
-    });
+    if (!this.name || !this.username || !this.role) {
+      return;
+    } else {
+      this.usersService.addUser({
+        id: Math.floor((Math.random() * 6) + 10),
+        name: this.name,
+        username: this.username,
+        email: '',
+        role: this.role,
+        phone: '',
+        website: ''
+      });
 
-    this.users = this.usersService.getUsersList();
-    this.clearInputs();
+      this.users = this.usersService.getUsersList();
+      this.clearInputs();
+
+      this.createDynamicNotification();
+    }
+
+  }
+
+  public ngOnDestroy(): void {
+    this.componentRef.destroy();
   }
 
   private getUsersList(): void {
@@ -68,6 +95,18 @@ export class UsersListComponent implements OnInit {
     this.username = '';
     this.name = '';
     this.role = '';
+  }
+
+  private createDynamicNotification(config?): void {
+    this.container.clear();
+
+    const factory: ComponentFactory<NotificationComponent> = this.resolver.resolveComponentFactory(NotificationComponent);
+
+    this.componentRef = this.container.createComponent(factory);
+
+    this.componentRef.instance.config = config;
+
+    this.componentRef.instance.output.subscribe((event) => console.log('output event: ', event));
   }
 
 }

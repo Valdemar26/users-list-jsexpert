@@ -1,4 +1,14 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ComponentFactory,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
+
+import { NotificationComponent } from './components/notification/notification.component';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +18,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Users-List';
 
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
 }
