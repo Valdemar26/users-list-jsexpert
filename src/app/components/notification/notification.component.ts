@@ -9,10 +9,15 @@ export class NotificationComponent implements OnInit {
 
   @Input() config;
   @Output() output = new EventEmitter();
+  @Output() close = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    console.log('config: ', this.config);
   }
 
+  public closeNotification(): void {
+    this.close.emit();
+  }
 }

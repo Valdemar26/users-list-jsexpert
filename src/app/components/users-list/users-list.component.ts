@@ -78,13 +78,27 @@ export class UsersListComponent implements OnInit, OnDestroy {
       this.users = this.usersService.getUsersList();
       this.clearInputs();
 
-      this.createDynamicNotification();
+      const config = {
+        label: 'Notification',
+        color: 'green',
+        timeout: 2000
+      };
+
+      this.createDynamicNotification(config);
+
+      setTimeout(() => {
+        this.componentRef.destroy();
+      }, 2000);
     }
 
   }
 
-  public ngOnDestroy(): void {
+  public destroyNotification() {
     this.componentRef.destroy();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroyNotification();
   }
 
   private getUsersList(): void {

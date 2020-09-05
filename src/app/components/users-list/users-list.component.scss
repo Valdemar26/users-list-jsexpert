@@ -5,12 +5,18 @@
   margin-top: 20px;
   position: relative;
 
+  .notification-wrapper {
+    width: 100%;
+    position: absolute;
+  }
+
   .item {
     width: 140px;
   }
 
   .btn {
     height: 50px;
+    margin-top: 5px;
 
     &.disabled {
       pointer-events: none;
