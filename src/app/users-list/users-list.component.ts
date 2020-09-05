@@ -19,23 +19,31 @@ export class UsersListComponent implements OnInit {
 
   constructor(public usersService: UsersService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getUsersList();
   }
 
-  getUsersList() {
+  public deleteUsers(): void {
+    this.usersService.deleteUsers(this.selectedList);
     this.users = this.usersService.getUsersList();
   }
 
-  search(query: string) {
+  public selectItem(users: MatListOption[]): void {
+    this.selectedList = [];
+    users.forEach((element) => {
+      this.selectedList.push(element.value);
+    });
+  }
+
+  public search(query: string): void {
     this.users = this.usersService.findUser(query);
   }
 
-  sort(direction: string) {
+  public sort(direction: string): void {
     this.users = this.usersService.sortUsers(direction);
   }
 
-  addUser(): void {
+  public addUser(): void {
     this.usersService.addUser({
       id: Math.floor((Math.random() * 6) + 10),
       name: this.name,
@@ -44,20 +52,20 @@ export class UsersListComponent implements OnInit {
       role: this.role,
       phone: '',
       website: ''
-    })
+    });
 
+    this.users = this.usersService.getUsersList();
+    this.clearInputs();
+  }
+
+  private getUsersList(): void {
     this.users = this.usersService.getUsersList();
   }
 
-  deleteUsers(): void {
-    this.usersService.deleteUsers(this.selectedList);
-    this.users = this.usersService.getUsersList();
+  private clearInputs(): void {
+    this.username = '';
+    this.name = '';
+    this.role = '';
   }
 
-  selectItem(users: MatListOption[]) {
-    this.selectedList = [];
-    users.forEach((element) => {
-      this.selectedList.push(element.value);
-    })
-  }
 }
