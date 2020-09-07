@@ -93,7 +93,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   }
 
-  public destroyNotification() {
+  public destroyNotification(): void {
     this.componentRef.destroy();
   }
 
